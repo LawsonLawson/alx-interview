@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+''' This is a module to define the Pascal's triangle function. '''
+
+
 def generate_row(previous_row):
     '''
     Generate the next row in Pascal's triangle given the previous row.
