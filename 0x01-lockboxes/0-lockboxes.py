@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 """
-Module to determine if all boxes can be unlocked.
-
-You have n number of locked boxes in front of you. Each box is numbered
-sequentially from 0 to n - 1, and each box may contain keys to the other boxes.
+You have n number of locked boxes in front of you.
+Each box is numbered sequentially from 0 to n - 1,
+and each box may contain keys to the other boxes.
 
 Function:
 - canUnlockAll(boxes): Determines if all boxes can be opened.
@@ -20,16 +19,16 @@ More info:
 
 def canUnlockAll(boxes):
     """
-    Determines if all the boxes can be opened.
+    Determines if all boxes can be opened.
 
     This function checks whether all the boxes in the list of lists 'boxes'
     can be unlocked starting from the first box (index 0). Each box may contain
-    keys that can unlock other boxes. The function uses a set to track
+    keys that can unlock other boxes. The function uses a list to track
     collected keys and iterates over the boxes to unlock them.
 
     Parameters:
     boxes (list of list of int): A list of boxes, where each box is represented
-    as a list of keys(integers) that can unlock other boxes.
+    as a list of keys (integers) that can unlock other boxes.
 
     Returns:
     bool: True if all boxes can be opened, otherwise False.
@@ -39,39 +38,23 @@ def canUnlockAll(boxes):
     >>> canUnlockAll([[1], [2], [3], [4], []])
     True
 
-    >>> canUnlockAll([[1, 4], [2], [3], [], [0]])
+    >>> canUnlockAll([[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]])
     True
 
-    >>> canUnlockAll([[1, 2, 3], [], [], [], []])
+    >>> canUnlockAll([[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]])
     False
 
     Notes:
     ------
     - The function assumes that all keys are positive integers.
     - The first box (index 0) is initially unlocked.
-    - The function uses a set to keep track of the keys collected.
+    - The function uses a list to keep track of the keys collected.
     """
-    number_of_boxes = len(boxes)
-    # Set of keys we have (start with the key to the first box)
-    keys = {0}
-    # List to track which boxes have been unlocked
-    unlocked = [False] * number_of_boxes
-    # The first box is initially unlocked
-    unlocked[0] = True
-
-    def unlock(box_index):
-        """
-        Recursively unlock boxes.
-
-        Parameters:
-        box_index (int): The index of the current box to unlock.
-        """
-        for key in boxes[box_index]:
-            if key < number_of_boxes and not unlocked[key]:
-                unlocked[key] = True
-                keys.add(key)
-                unlock(key)
-
-    unlock(0)
-
-    return all(unlocked)
+    # List to store the keys collected to open boxes, starts with the key to
+    # the first box
+    keys_collected = [0]
+    for current_key in keys_collected:
+        for key_in_box in boxes[current_key]:
+            if key_in_box not in keys_collected and key_in_box < len(boxes):
+                keys_collected.append(key_in_box)
+    return len(keys_collected) == len(boxes)
