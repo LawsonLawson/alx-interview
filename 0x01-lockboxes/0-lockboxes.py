@@ -51,10 +51,6 @@ def canUnlockAll(boxes):
     - The first box (index 0) is initially unlocked.
     - The function uses a set to keep track of the keys collected.
     """
-    if not isinstance(boxes, list) or not all(isinstance(box, list) for
-                                              box in boxes):
-        raise TypeError("Input should be a list of lists.")
-
     number_of_boxes = len(boxes)
     # Set of keys we have (start with the key to the first box)
     keys = {0}
